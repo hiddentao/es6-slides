@@ -36,25 +36,59 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>HTML Presentations Made Easy</h3>
+				<section id="first-slide">
+					<h1>ES6</h1>
+					<h3>Next Generation Javascript</h3>
 					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
+						<small>By <a href="http://hiddentao.com">Ramesh Nair</a> and <a href="http://geekingfrog.com/">Grégoire Charvet</a></small>
 					</p>
 				</section>
 
-				<section>
-					<h2>Heads Up</h2>
-					<p>
-						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
-						support for CSS 3D transforms to see it in its full glory.
-					</p>
+				<section data-markdown>
+					<script type="text/template">
+						## What we will cover
 
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+						* Why ECMAScript6?
+						* Iterators and Generators
+						* ...
+						* Browser support
+					</script>
+
+					<aside class="notes" data-markdown>
+						<script type="text/template">
+						</script>
 					</aside>
 				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						#### Next...
+						## Iterators
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						#### Next...
+						## Generators
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## Useful links
+						* [https://github.com/hiddentao/es6-slides](https://github.com/hiddentao/es6-slides)
+						* [http://www.ecmascript.org/](http://www.ecmascript.org/)
+						* [https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla](https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla)
+					</script>
+				</section>
+
 
 				<!-- Example of nested vertical slides -->
 				<section>
@@ -364,6 +398,9 @@ function linkify( selector ) {
 				progress: true,
 				history: true,
 				center: true,
+				keyboard: true,
+				overview: true,
+				fragments: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
