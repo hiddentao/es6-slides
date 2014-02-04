@@ -1,0 +1,71 @@
+/**
+ * Default theme for reveal.js.
+ *
+ * Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+
+// Override theme settings (see ../template/settings.scss)
+$mainFont: 'Lato', sans-serif;
+$mainColor: #000;
+$headingFont: 'News Cycle', Impact, sans-serif;
+$headingColor: #000;
+$headingTextShadow: none;
+$headingTextTransform: none;
+$backgroundColor: #fff;
+$linkColor: #00008B;
+$linkColorHover: lighten( $linkColor, 20% );
+$selectionBackgroundColor: rgba(0, 0, 0, 0.99);
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+
+// custom stuff 
+
+.reveal {
+  p {
+    margin: 1em 0;
+
+    &.small {
+      font-size:70%;
+    }
+
+    &.smaller {
+      font-size:50%;
+    }
+
+    &.spaced {
+      margin-top: 2em;
+    }
+
+    code {
+      color: #00a;
+      font-size: 120%;
+      margin: 0 0.1em;
+    }
+  }
+
+  pre {
+    width: 100%;
+    font-size: 1em;
+
+    code.small {
+      font-size: 0.7em;
+      line-height: 1em;
+    }
+  }
+}

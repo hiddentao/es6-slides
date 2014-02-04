@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>ES6 - Next Generation Javascript</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/theme/es6.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -36,12 +36,19 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section id="first-slide">
-					<h1>ES6</h1>
-					<h3>Next Generation Javascript</h3>
-					<p>
-						<small>By <a href="http://hiddentao.com">Ramesh Nair</a> and <a href="http://geekingfrog.com/">Grégoire Charvet</a></small>
-					</p>
+				<section id="first-slide" data-markdown>
+					<script type="text/template">
+						# ES6
+						### Next Generation Javascript
+
+						<p class="small spaced">
+							By [Ramesh Nair](http://hiddentao.com) and [Grégoire Charvet](http://geekingfrog.com)
+						</p>
+
+						<p class="smaller spaced">
+							[https://github.com/hiddentao/es6-slides](https://github.com/hiddentao/es6-slides)
+						</p>
+					</script>
 				</section>
 
 				<section data-markdown>
@@ -52,12 +59,8 @@
 						* Iterators and Generators
 						* ...
 						* Browser support
-					</script>
 
-					<aside class="notes" data-markdown>
-						<script type="text/template">
-						</script>
-					</aside>
+					</script>
 				</section>
 
 				<section data-markdown>
@@ -69,9 +72,97 @@
 
 				<section data-markdown>
 					<script type="text/template">
-						
+						An **iterator** lets you iterate over the contents of an object.
+
+						In ES6, an iterator is an object with a `next()` method which returns `{done, value}` tuples.
+
+						An **iterable** is an object which can return an iterator.
+
+						Note: 
+						* Browser: Only Firefox Nightly 29 for now. Firefox stable supports older syntax and semantics.
+						* Node: `for-of` partially supported
 					</script>
 				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						Arrays are iterable:
+
+```
+var a = [1,2,3],
+	i = a.iterator();
+
+i.next(); // {done: false, value: 1}
+i.next(); // {done: false, value: 2}
+i.next(); // {done: false, value: 3}
+i.next(); // {done: true, value: undefined}
+```
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						The `for-of` loop can be used to simplify iterations:
+
+```
+var a = [1,2,3];
+
+for (var num of a) {
+	console.log(num); // 1, 2, 3
+}
+```
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					We can make any object iterable:
+```
+function ClassA() {
+  this.elements = [1, 2, 3];
+}
+```
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+					By adding the `@@iterator` method:
+```small
+ClassA.prototype['@@iterator'] = function() {
+  return {
+    elements: this.elements,
+    index: 0,
+    next: function() {
+      if (this.index >= this.elements.length)
+      	return { 
+      		done: true, 
+      		value: undefined 
+      	};
+    	else
+      	return { 
+      		done: false, 
+      		value: this.elements[this.index++] 
+      	};
+}}};
+```
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+```
+var col = new ClassA();
+
+for (var num of col) {
+	console.log(num); // 1, 2, 3
+}
+```
+					</script>
+				</section>
+
 
 				<section data-markdown>
 					<script type="text/template">
@@ -83,7 +174,7 @@
 				<section data-markdown>
 					<script type="text/template">
 						## Useful links
-						* [https://github.com/hiddentao/es6-slides](https://github.com/hiddentao/es6-slides)
+						* [http://kangax.github.io/es5-compat-table/es6/](http://kangax.github.io/es5-compat-table/es6/)
 						* [http://www.ecmascript.org/](http://www.ecmascript.org/)
 						* [https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla](https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla)
 					</script>
@@ -394,6 +485,10 @@ function linkify( selector ) {
 			// Full list of configuration options available here:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
+				width: 1024,
+    		height: 700,
+    		margin: 0,				
+
 				controls: true,
 				progress: true,
 				history: true,
