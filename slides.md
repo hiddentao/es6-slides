@@ -26,7 +26,7 @@ Note:
 
 Arrays are iterable:
 
-```
+```javascript
 var a = [1,2,3],
   i = a.iterator();
 
