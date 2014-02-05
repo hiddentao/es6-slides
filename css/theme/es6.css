@@ -152,4 +152,37 @@ body {
   font-size: 1em; }
   .reveal pre code.small {
     font-size: 0.7em;
+    line-height: 1.4em; }
+  .reveal pre code.smaller {
+    font-size: 0.7em;
     line-height: 1em; }
+  .reveal pre code.smallest {
+    font-size: 0.5em;
+    line-height: 1em; }
+.reveal .fragment.visible p {
+  color: #999; }
+.reveal .fragment.visible.current-fragment p {
+  color: #000; }
+.reveal .single-fragment-view .fragment.visible {
+  display: none; }
+  .reveal .single-fragment-view .fragment.visible.current-fragment {
+    display: block; }
+.reveal section.step-code pre.program {
+  box-shadow: none;
+  float: left;
+  width: 80%;
+  margin-left: -20%; }
+  .reveal section.step-code pre.program strong {
+    background-color: #000;
+    color: #fff; }
+  .reveal section.step-code pre.program b {
+    color: #999; }
+.reveal pre.output {
+  float: right;
+  width: 55%;
+  margin-right: -30%;
+  font-size: 0.8em;
+  background-color: #ff0;
+  box-shadow: none;
+  padding: 1em;
+  line-height: 2em; }
