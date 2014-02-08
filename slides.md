@@ -25,8 +25,7 @@ Note:
 
 
 Arrays are iterable:
-
-```small
+<pre><code class="javascript small">
 var a = [1,2,3],
   i = a.iterator();
 
@@ -34,33 +33,32 @@ console.log(i.next()); // {done: false, value: 1}
 console.log(i.next()); // {done: false, value: 2}
 console.log(i.next()); // {done: false, value: 3}
 console.log(i.next()); // {done: true, value: undefined}
-```
+</code></pre>
 
 
 
 The `for-of` loop can be used to simplify iterations:
-
-```
+<pre><code class="javascript">
 var a = [1,2,3];
 
 for (var num of a) {
   console.log(num); // 1, 2, 3
 }
-```
+</code></pre>
 
 
 
 We can make any object iterable:
-```
+<pre><code class="javascript">
 function ClassA() {
   this.elements = [1, 2, 3];
 }
-```
+</code></pre>
 
 
 
 By adding the `@@iterator` method:
-```smaller
+<pre><code class="javascript smaller">
 ClassA.prototype['@@iterator'] = function() {
   return {
     elements: this.elements,
@@ -77,17 +75,18 @@ ClassA.prototype['@@iterator'] = function() {
           value: this.elements[this.index++] 
         };
 }}};
-```
+</code></pre>
 
 
 
-```
+We can iterate over the Object:
+<pre><code class="javascript">
 var col = new ClassA();
 
 for (var num of col) {
   console.log(num); // 1, 2, 3
 }
-```
+</code></pre>
 
 
 
@@ -112,7 +111,7 @@ Note:
 
 
 Simple example:
-```small
+<pre><code class="javascript small">
 var helloWorld = function*() {
   yield 'hello';
   yield 'world';
@@ -122,12 +121,12 @@ var hw = helloWorld();
 console.log( hw.next() ); // { value: 'hello', done: false }
 console.log( hw.next() ); // { value: 'world', done: false }
 console.log( hw.next() ); // { value: undefined, done: true }
-```
+</code></pre>
 
 
 
 Passing values back to generator:
-```small
+<pre><code class="javascript small">
 var helloWorld = function*() {
   var nextWord = yield 'hello';
   yield nextWord;
@@ -135,10 +134,10 @@ var helloWorld = function*() {
 
 var hw = helloWorld();
 
-console.log( hw.next() );        // { value: 'hello', done: false }
+console.log( hw.next() );       // { value: 'hello', done: false }
 console.log( hw.next('world') ); // { value: 'world', done: false }
-console.log( hw.next() );        // { value: undefined, done: true }
-```
+console.log( hw.next() );       // { value: undefined, done: true }
+</code></pre>
 
 
 
@@ -499,34 +498,16 @@ No more yields...
   <p>The code in the generator doesn't start executing until you say so.</p>
   <p>When the `yield` statement is encountered it suspends execution until you tell it to resume.</p>
   <div class="fragment">
-    <p>_What about `throw()`-ing errors?</p>
+    <p>_What about `throw()`-ing errors?_</p>
   </div>
 </div>
 
 
 <!-- .slide: data-transition="none", class="step-code" -->
 <pre class="program">
-var helloWorld = function*() {    
-  console.log('Yield 1...');
-  var nextWord = yield 'hello';
-  console.log('Yield 2...');
-  yield nextWord;
-  console.log('No more yields...');
-}
-
-var hw = helloWorld();
-
-console.log( hw.next() );
-console.log( hw.throw('Voldemort') );
-console.log( hw.next() );
-</pre>
-
-
-<!-- .slide: data-transition="none", class="step-code" -->
-<pre class="program">
 <b>var helloWorld = function*() {</b>
   <b>console.log('Yield 1...');</b>
-  <strong>var nextWord</strong> = <b>yield 'hello'</b>;
+  var nextWord = <b>yield 'hello'</b>;
   console.log('Yield 2...');
   yield nextWord;
   console.log('No more yields...');
@@ -535,7 +516,7 @@ console.log( hw.next() );
 <b>var hw = helloWorld();</b>
 
 <b>console.log( hw.next() );</b>
-console.log( hw.throw('Voldemort') );
+console.log( <strong>hw.throw('Voldemort')</strong> );
 console.log( hw.next() );
 </pre>
 <pre class="output">
@@ -551,9 +532,7 @@ How do Generators make asynchronous programming easier?
 
 
 The old-school way:
-
-```smaller
-var readFile = function(fileName, cb) { ... };
+<pre><code class="javascript smaller">var readFile = function(fileName, cb) { ... };
 
 var main = function(cb) {
   readFile('file1', function(err, contents1) {
@@ -569,14 +548,12 @@ var main = function(cb) {
 }
 
 main(console.error);
-```
+</code></pre>
 
 
 
 Improved using Promises:
-
-```smaller
-var readFile = Promise.promisify(function(fileName, cb) { ... });
+<pre><code class="javascript smaller">var readFile = Promise.promisify(function(fileName, cb) { ... });
 
 var main = function() {
   return readFile('file1')
@@ -591,7 +568,7 @@ var main = function() {
 }
 
 main();
-```
+</code></pre>
 
 Note:
 * Only need to handle errors in one place
@@ -606,8 +583,7 @@ But first we need a function which will automatically handle the `yield`-ed valu
 
 <!-- .slide: id="runGenerator", -->
 Automatically resolve Promises and call `next()`:
-```smallest
-var runGenerator = function(generatorFunction) {
+<pre><code class="javascript smallest">var runGenerator = function(generatorFunction) {
   var gen = generatorFunction();
 
   var gNext = function(err, answer) {
@@ -625,7 +601,7 @@ var runGenerator = function(generatorFunction) {
   };
   gNext();
 }
-```
+</code></pre>
 
 Note:
 * This assumes that the generator always yields either Promises or values which can be wrapped as a Promise.
@@ -633,10 +609,7 @@ Note:
 
 
 Now we can rewrite `main()` as a generator function:
-
-```smaller
-var readFile = Promise.promisify(function(fileName, cb) { ... });
-
+<pre><code class="javascript small">var readFile = Promise.promisify(function(fileName, cb) { ... });
 var main = function*() {
   try {
     console.log( yield readFile('file1') );
@@ -647,7 +620,7 @@ var main = function*() {
 }
 
 runGenerator(main);
-```
+</code></pre>
 
 Note:
 * The whole method is much cleaner-looking and easier to understand.
@@ -664,6 +637,41 @@ You don't need to write `runGenerator()` yourself.
 
 Note:
 * **co** is one of the key building blocks for Koa, the successor to Express.
+
+
+
+<!-- .slide: class="side-by-side-code" -->
+Generator delegation:
+<pre><code class="javascript left smaller">var inner = function*() {
+  try {
+    yield callServer1();
+    yield callServer2();  
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+var outer = function*() {
+  yield* inner();
+};
+
+runGenerator(outer);
+</code></pre>
+<pre><code class="javascript right smaller">var outer = function*() {
+  try {
+    yield callServer1();
+    yield callServer2();  
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+runGenerator(outer);
+</code></pre>
+
+Note:
+* Generator delegation is a convenience notation which makes it easy to compose generators
+
 
 
 
@@ -684,7 +692,7 @@ All of the previous Generator code examples should work!
 
 
 
- 
+
 ## Useful links
 * [http://kangax.github.io/es5-compat-table/es6/](http://kangax.github.io/es5-compat-table/es6/)
 * [http://www.ecmascript.org/](http://www.ecmascript.org/)

@@ -60,6 +60,8 @@ $selectionBackgroundColor: rgba(0, 0, 0, 0.99);
   }
 
   pre {
+    box-shadow: none;
+    border: none;
     width: 100%;
     font-size: 1em;
 
@@ -103,11 +105,12 @@ $selectionBackgroundColor: rgba(0, 0, 0, 0.99);
   }
 
   section.step-code {
+
     pre.program {
       box-shadow: none;
       float: left;
       width: 80%;
-      margin-left: -20%;
+      margin-left: -10%;
 
       strong {
         background-color: #000; 
@@ -118,20 +121,36 @@ $selectionBackgroundColor: rgba(0, 0, 0, 0.99);
         color: #999;
       }
     }
+
+    pre.output {
+      float: right;
+      width: 35%;
+      margin-right: -10%;
+      font-size: 0.5em;
+
+      background-color: #ff0;
+      box-shadow: none;
+      padding: 1em;
+      line-height: 2em;
+
+    }    
   }
 
-  pre.output {
-    float: right;
-    width: 55%;
-    margin-right: -30%;
-    font-size: 0.8em;
-
-    background-color: #ff0;
-    box-shadow: none;
-    padding: 1em;
-    line-height: 2em;
-
+  section.side-by-side-code {
+    code {
+      font-size: 80%;
+      line-height: 1e;
+    }
+    code.left {
+      float: left;
+      width: 47%;
+    }
+    code.right {
+      float: right;
+      width: 47%;
+    }
   }
+
 }
 
 
