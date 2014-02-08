@@ -674,10 +674,29 @@ Note:
 
 
 
+<!-- .slide: class="side-by-side-code" -->
+Generator comprehension:
+<pre><code class="javascript left small">(for (x of a) 
+  for (y of b) 
+    x * y)
+</code></pre>
+<pre><code class="javascript right small">(function* () {
+  for (x of a) {
+    for (y of b) {
+      yield x * y;
+    }
+  }
+}())
+</code></pre>
 
-Native Promises in ES6...yay!
+Note:
+* Might seem weird, but has its reasons: http://esdiscuss.org/topic/why-do-generator-expressions-return-generators
 
-**Generators + Promises = future of JS asynchronous programming.**
+
+
+**Generators = future of JS asynchronous programming.**
+
+...and ES6 also has Promises!
 
 [http://spion.github.io/posts/why-i-am-switching-to-promises.html](http://spion.github.io/posts/why-i-am-switching-to-promises.html)
 
@@ -696,5 +715,6 @@ All of the previous Generator code examples should work!
 ## Useful links
 * [http://kangax.github.io/es5-compat-table/es6/](http://kangax.github.io/es5-compat-table/es6/)
 * [http://www.ecmascript.org/](http://www.ecmascript.org/)
+* [http://www.esdiscuss.org/](http://www.esdiscuss.org/)
 * [https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla](https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla)
 

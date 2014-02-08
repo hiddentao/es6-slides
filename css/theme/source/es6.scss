@@ -138,6 +138,7 @@ $selectionBackgroundColor: rgba(0, 0, 0, 0.99);
 
   section.side-by-side-code {
     code {
+      border: 1px solid #ccc;
       font-size: 80%;
       line-height: 1e;
     }

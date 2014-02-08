@@ -189,6 +189,7 @@ body {
   padding: 1em;
   line-height: 2em; }
 .reveal section.side-by-side-code code {
+  border: 1px solid #ccc;
   font-size: 80%;
   line-height: 1e; }
 .reveal section.side-by-side-code code.left {
