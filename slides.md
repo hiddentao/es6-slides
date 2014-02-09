@@ -723,6 +723,56 @@ All of the previous Generator code examples should work!
 
 
 
+#### Next...
+## Collections
+
+
+
+`Set` - no duplicates allowed
+<pre><code class="javascript small">var items = new Set();
+items.add(5);
+items.add("5");
+items.add(5);
+console.log(items.size);    // 2
+
+var items = new Set([1,2,3,4,5,5,5]);
+console.log(items.size);    // 5
+</code></pre>
+
+Note:
+* Note that value are not coerced - so `"5"` is considered different to `5`.
+* Browsers: Firefox only. Chrome support is behind a flag.
+* Node: Suppored behind `harmony` flag, though note that `add()` needs to be used - constructor parameter does nothing.
+
+
+
+
+More `Set` operations
+<pre><code class="javascript small">var items = new Set([1,2,3,4,4]);
+console.log( items.has(4) ); // true
+console.log( items.has(5) ); // false
+
+items.delete(4);
+console.log( items.has(4) ); // false
+console.log( items.size ); // 3
+
+items.clear();
+console.log( items.size ); // 0
+</code></pre>
+
+
+
+Iterate over a  `Set` using `for-of`
+<pre><code class="javascript small">var items = new Set([1,2,3,4,4]);
+
+for (let num of items) {
+  console.log( num );     // 1, 2, 3, 4
+}
+</code></pre>
+
+
+
+
 ## Useful links
 * [http://kangax.github.io/es5-compat-table/es6/](http://kangax.github.io/es5-compat-table/es6/)
 * [http://www.ecmascript.org/](http://www.ecmascript.org/)
