@@ -8,7 +8,7 @@
 
 
 #### Next...
-## Iterators
+## Iterators and Generators
 
 
 
@@ -48,6 +48,23 @@ for (var num of a) {
 
 
 
+Array comprehensions:
+```javascript
+var a = [
+  { color: 'red' },
+  { color: 'blue' }
+];
+
+[ x.color for (x of a) if ('blue' === x.color) ]
+
+// [ 'blue' ]
+```
+
+Note:
+* Only in Firefox for now. Not even Node supports it.
+
+
+
 We can make any object iterable:
 <pre><code class="javascript">
 function ClassA() {
@@ -58,8 +75,7 @@ function ClassA() {
 
 
 By adding the `@@iterator` method:
-<pre><code class="javascript smaller">
-ClassA.prototype['@@iterator'] = function() {
+<pre><code class="javascript smaller">ClassA.prototype['@@iterator'] = function() {
   return {
     elements: this.elements,
     index: 0,
@@ -87,11 +103,6 @@ for (var num of col) {
   console.log(num); // 1, 2, 3
 }
 </code></pre>
-
-
-
-#### Next...
-## Generators
 
 
 
