@@ -743,11 +743,11 @@ Note:
 * Note that value are not coerced - so `"5"` is considered different to `5`.
 * Browsers: Firefox only. Chrome support is behind a flag.
 * Node: Suppored behind `harmony` flag, though note that `add()` needs to be used - constructor parameter does nothing.
+* http://www.nczonline.net/blog/2012/09/25/ecmascript-6-collections-part-1-sets/
 
 
 
-
-More `Set` operations
+Modifying a `Set`
 <pre><code class="javascript small">var items = new Set([1,2,3,4,4]);
 console.log( items.has(4) ); // true
 console.log( items.has(5) ); // false
@@ -770,6 +770,128 @@ for (let num of items) {
 }
 </code></pre>
 
+
+
+`Map` - map from key to value
+<pre><code class="javascript small">var map = new Map();
+map.set("name", "John");
+map.set(23, "age");
+
+console.log( map.has(23); ) // true
+console.log( map.get(23) ); // "age"
+console.log( map.size );    // 2
+</code></pre>
+
+Note:
+* Browsers: Firefox only. Chrome support is behind a flag.
+* Node: Suppored behind `harmony` flag.
+* http://www.nczonline.net/blog/2012/10/09/ecmascript-6-collections-part-2-maps/
+
+
+
+`Map` vs `Object`
+
+* Maps can have non-string keys
+* Maps don't have prototype leakage issues, i.e. no need to use `hasOwnProperty()`
+* But 
+
+
+
+Modifying a `Map`
+<pre><code class="javascript small">var map = new Map([ ['name', 'John'], [23, 'age'] ]);
+console.log( map.size );    // 2
+
+map.delete(23);
+console.log( map.get(23) ); // undefined
+
+map.clear();
+console.log( map.size ); // 0
+</code></pre>
+
+Note:
+* Note that you can pass map key-valur pairs to the constructor
+
+
+
+Iterating over a `Map`
+<pre><code class="javascript smaller">var map = new Map([ ['name', 'John'], [23, 'age'] ]);
+
+for (var value of map.values()) { ... }
+
+for (var key of map.keys()) { ... }
+
+for (var item of map.items()) {
+  console.log('key: ' + item[0] + ', value: ' + item[1]);
+}
+
+for (var item of map) { // same as iterating map.items() }
+
+map.forEach(function(value, key, map) { ... });
+</code></pre>
+
+
+
+`WeakMap` - similar to `Map`, but...
+
+* Only allows `Object` keys
+* Only holds a reference to the `Object` used as a key, so it doesn't prevent garbage collection
+* Do no provide a `size`
+* Cannot be iterated over
+
+
+
+<pre><code class="javascript small">var weakMap = new WeakMap();
+var key = {
+  stuff: true
+};
+
+weakMap.set(key, 123); // weakMap contains 1 item
+
+delete key;  // weakMap is now empty
+</code></pre>
+
+
+
+#### Next...
+## API improvements
+
+Note:
+* Mozilla Developer docs explain all of these
+
+
+
+New `Math` functions
+
+`log10`, `log2`, `log1p`, `expm1`, `cosh`, `sinh`, `tanh`, `acosh`, `asinh`, `atanh`, `hypot`, `trunc`, `sign`
+
+Note:
+* Mozilla Developer docs explain all of these
+
+
+
+`Number`
+
+* `.isFinite()`
+
+* `.isNaN()`
+
+* `.isInteger()`
+
+`.EPSILON` - smallest values such that `1 + Number.EPSILON > 1`
+
+
+
+`String`
+
+* `.repeat(n)` - copy current string `n` times
+
+* `.startsWith(str)`
+
+* `.endsWith(str)`
+
+* `.contains(str)`
+
+* `.toArray()` - same as `.split('')`
 
 
 
