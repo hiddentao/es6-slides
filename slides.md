@@ -7,6 +7,365 @@
 
 
 
+## Scoping
+
+
+
+## Block scoping
+
+Finally !
+
+
+
+## Before
+```javascript
+for(var i=10; i>0 ; i--) {
+  // do stuff with i
+}
+console.log(i); // 0
+```
+
+
+
+
+## `let`
+```javascript
+for(let i=10; i>10; i--) {
+}
+console.log(i); // `i is not defined`
+```
+
+
+
+
+## Works with if too
+```
+var log = function(msg) {};
+if(someCond) {
+  let log = Math.log;
+  // do some stuff
+}
+log("I'm done here");
+
+```
+
+
+
+## Easier closures
+
+broken example
+
+```javascript
+var a = ['rhum', 'banana', 'nutella'];
+for(var i = 0, n=a.length; i<n; i++) {
+  var nomnom = a[i];
+  setTimeout(function() {
+    console.log(nomnom);
+  }, 500*(i+1))
+}
+```
+
+
+
+## Easy fix
+
+```javascript
+var a = ['rhum', 'banana', 'nutella'];
+for(var i = 0, n=a.length; i<n; i++) {
+  let nomnom = a[i];
+  setTimeout(function() {
+    console.log(nomnom);
+  }, 500*(i+1))
+}
+```
+
+
+
+## let('s) recap
+
+* works like var
+* scope is defined by the current block ({ })
+
+
+
+## const
+
+Like `let`, but define read-only constant declarations.
+
+```javascript
+'use strict';
+const i = 10;
+i = 5; // throw error
+```
+
+
+
+## Destructuration
+
+
+
+## With array
+
+```javascript
+// Assignment
+var [day, month, year] = [19, 02, 2014];
+
+// Swap two values.
+var x=3, y=4;
+[x, y] = [y, x];
+```
+
+
+
+## Array with functions
+
+```javascript
+var now = function() { return [19, 02, 2014]; }
+var [day, month] = now();
+var [, , year] = now();
+```
+
+
+
+## With objects
+
+```javascript
+var now = function() { return {
+  d: 19,
+  m: 2,
+  y: 2014
+}}
+
+var {d: day, m: month} = now();
+// day: 19
+// month: 2
+```
+
+
+
+## As argument of a function
+
+```javascript
+recipes = [
+  { name: 'burger', calorie: 215 },
+  { name: 'pizza', calorie: 266 } ];
+
+recipes.forEach(function
+  ({ name: name, calorie: calorie }) {
+    console.log(name, calorie);
+  }
+);
+```
+
+
+
+## Default parameters
+Ability to define default value for functions paramaters.
+No more:
+
+```javascript
+function(a) {
+  if(!a) { a = 10; }
+  // do stuff with a
+}
+```
+
+
+
+## Now
+
+```javascript
+function(a=10) {
+  // do stuff with a
+}
+```
+
+
+
+## Undefined and null
+
+`undefined` will trigger the evaluation of the default value, not `null`
+
+```javascript
+function point (x, y=1, z=1) {
+  return console.log(x, y, z);
+}
+
+point(10, null); // 10, null, 1
+
+```
+
+
+
+## Arity
+Number of parameters without default value
+
+```javascript
+(function(a){}).length // 1
+(function(a=10){}).length // 0
+```
+
+
+
+## Rest parameters
+Better than `arguments`
+
+```javascript
+function(name) {
+  console.log(name);
+  arguments[0] = 'ME !';
+  console.log(name); // ME !
+  Array.isArray(arguments); // false
+}
+```
+
+
+
+## Now
+```javascript
+function(...args) {
+  Array.isArray(args); // true
+  // do some stuff
+}
+
+function(name, ...more) {
+
+}
+```
+
+
+
+## Restrictions
+Rest parameters can only be the last parameter
+
+```javascript
+// incorrect
+function(...args, callback) {
+}
+```
+
+
+
+## Details
+```javascript
+// Always an array
+function f(name, ...more) {
+  Array.isArray(more); // always true
+  return more.length;
+}
+f(); // returns 0
+```
+
+
+## Arity
+Does not include the rest parameter
+```javascript
+(function(a) {}).length // 1
+(function(a, ...rest) {}).length // 1
+```
+
+
+
+## Spread
+Expand expression where multiple arguments or multiple element are needed
+
+
+
+## Spread with functions
+#### A better `apply`
+
+```javascript
+var f = function(one, two, three) {}
+var a = [1, 2, 3];
+f.apply(null, a);
+```
+
+
+
+## With es6's spread
+```javascript
+var f = function(one, two, three) {}
+var a = [1, 2, 3];
+f(...a);
+```
+
+
+
+## Crazy syntax
+```javascript
+var f = function(a, b, c, d, e, f) {};
+var a = [1, 2];
+f(-1, ...a, 3, ...[-3, -4]);
+```
+
+
+
+## More powerful array manipulation
+Usecase: create new array with an existing one inside it:
+```javascript
+var from = [1, 2];
+// wants: [0, 1, 2, 3] ie [0, from, 3]
+```
+
+<pre><code class="javascript fragment">
+var total = [0, ...from, 3];
+</code></pre>
+
+
+
+## Apply for `new`
+With es5, one cannot use `apply` with `new`.
+But now:
+```javascript
+var dataFields = readDateFields(database);
+var d = new Date(...dateFields);
+```
+
+
+
+## Better push
+Before:
+```javascript
+var a = [];
+var toPush = [1, 2, 3];
+a.push.apply(a, toPush);
+```
+
+<div class="fragment">
+And now:
+<pre><code class="javascript">
+a.push(...toPush);
+</code></pre>
+</div>
+
+
+
+## Converting any array-like
+
+Before:
+```javascript
+var nodes = document.querySelectorAll('p');
+var nodes = [].slice.call(nodes);
+```
+
+<div class="fragment">
+And now:
+<pre><code class="javascript">
+nodes = [...nodes];
+</code></pre>
+</div>
+
+
+
+## Array conversion
+Better way:
+```javascript
+Array.from(document.querySelectorAll('p'));
+```
+Out of the scope of the talk.
+
+
+
 #### Next...
 ## Iterators and Generators
 
