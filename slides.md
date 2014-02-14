@@ -203,6 +203,7 @@ Number of parameters without default value
 ```javascript
 (function(a){}).length // 1
 (function(a=10){}).length // 0
+(function(a=10, b){}).length // 1
 ```
 
 
@@ -235,6 +236,22 @@ function(name, ...more) {
 
 
 
+## Example
+```javascript
+var humblify = function(name, ...qualities) {
+  console.log('Hello %s', name);
+  console.log('You are '+qualities.join(' and '));
+}
+
+humblify('Greg', 'awesome', 'a genius', 'the master of the universe');
+// Hello Greg
+// You are awersome and a genius and the
+// master of the universe
+```
+
+
+
+
 ## Restrictions
 Rest parameters can only be the last parameter
 
@@ -247,14 +264,16 @@ function(...args, callback) {
 
 
 ## Details
+Rest parameter is *always* an array
+
 ```javascript
-// Always an array
 function f(name, ...more) {
   Array.isArray(more); // always true
   return more.length;
 }
 f(); // returns 0
 ```
+
 
 
 ## Arity
@@ -281,6 +300,28 @@ f.apply(null, a);
 ```
 
 
+## Apply ?
+
+* `Function.prototype.apply`
+* `fun.apply(thisArg, [argsArray])`
+
+
+## Apply example
+
+```
+function f() {
+  for(let i=0; i<arguments.length; ++i)
+    console.log(arguments[i]);
+}
+
+f.apply(this, ['one', 2, 'foo']);
+// one
+// 2
+// foo
+```
+
+
+
 
 ## With es6's spread
 ```javascript
@@ -291,7 +332,7 @@ f(...a);
 
 
 
-## Crazy syntax
+## Sweet syntax
 ```javascript
 var f = function(a, b, c, d, e, f) {};
 var a = [1, 2];
@@ -307,24 +348,47 @@ var from = [1, 2];
 // wants: [0, 1, 2, 3] ie [0, from, 3]
 ```
 
-<pre><code class="javascript fragment">
+
+
+## With es5
+
+```
+a.unshift(0);
+a.push(3);
+// and splice is here also
+```
+
+<div class="fragment">
+<h2>With es6</h2>
+<pre><code class="javascript">
 var total = [0, ...from, 3];
 </code></pre>
+</div>
 
 
 
 ## Apply for `new`
 With es5, one cannot use `apply` with `new`.
-But now:
+
 ```javascript
+var Constructor = function() {
+  // do some stuff
+}
+var c = new Constructor.apply({}, []); //invalid
+```
+
+<div class="fragment">
+But now:
+<pre><code class="javascript">
 var dataFields = readDateFields(database);
 var d = new Date(...dateFields);
-```
+</pre></code>
+</div>
 
 
 
 ## Better push
-Before:
+To push multiple elements:
 ```javascript
 var a = [];
 var toPush = [1, 2, 3];
@@ -341,6 +405,29 @@ a.push(...toPush);
 
 
 ## Converting any array-like
+
+
+## Array like ???
+
+* Object with a length property
+* Can access elements with `[]`
+
+```javascript
+var fake = {
+  0: 'I am',
+  1: 'not',
+  2: 'an aray',
+  length: 3
+};
+```
+
+
+## Array like in the wild
+
+* Function's `arguments`
+* All nodeList from the DOM
+
+
 
 Before:
 ```javascript
@@ -1232,7 +1319,7 @@ Note:
 
 * `.isFinite()`
 
-* `.isNaN()`
+* `.isNaN()` //Greg: new ???
 
 * `.isInteger()`
 
