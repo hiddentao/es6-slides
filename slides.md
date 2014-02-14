@@ -1341,6 +1341,159 @@ Note:
 
 
 
+#### Next...
+## Modularity
+
+
+
+## Classes
+
+
+
+## In es5
+
+* Classes doesn't exist natively
+* Prototype based inheritance
+* Framework and libraries implement their own class system
+
+
+
+## New keyword
+
+```javascript
+class Laptop {
+  constructor() {
+    this.brand = 'asus';
+  }
+
+  on() { ... }
+  off() { ... }
+}
+```
+
+
+
+## Call the parent
+
+```javascript
+class SmashedLaptop extend Laptop {
+  constructor() {
+    super();
+    this.pieces = [];
+  }
+}
+```
+
+
+
+## Key points
+
+* `constructor` replace the function definition in es5
+* No access to the `prototype` of the class
+* Methods are defined the same way as objects
+* Can call the parent with `super` (and perform initialization within the constructor)
+
+
+
+## Modules
+
+<pre><code language="javascript">&bull; import the default export of a module
+import $ from "jquery";
+</code></pre>
+
+<div class="fragment">
+<pre><code language="javascript small">&bull; binding an external module to a variable
+module crypto from "crypto";
+</code></pre>
+</div>
+
+<div class="fragment">
+<pre><code language="javascript small">&bull; binding a module's exports to variables
+import { encrypt, decrypt } from "crypto";
+</code></pre>
+</div>
+
+
+
+## Modules
+
+<pre><code language="javascript small">&bull; binding and renaming one of a module's exports
+import { encrypt as enc } from "crypto";
+</code></pre>
+
+<div class="fragment">
+<pre><code language="javascript small">&bull; re-exporting another module's exports
+export * from "crypto";
+</code></pre>
+</div>
+
+<div class="fragment">
+<pre><code language="javascript small">&bull; re-exporting specified exports
+from another module
+export { foo, bar } from "crypto";
+</code></pre>
+</div>
+
+
+
+## Why ?
+
+* No need for the global object anymore
+* Works well with existing modules system (AMD, CommonJS and node)
+* Simplicity and usability
+* Compatibility with browser and non-browser environments
+* Easy asynchronous external loading
+
+
+
+## Exporting and importing
+
+```javascript
+module "chocolate" {
+  export let cocoa = 75;
+}
+```
+
+In another file:
+
+```
+import { cocoa } from "chocolate";
+// or
+import { cocoa as c} from "chocolate";
+```
+
+
+
+## Default export
+
+```javascript
+module "foo" {
+  export default function() {console.log("Hi!")}
+}
+```
+<hr>
+
+```javascript
+import foo from "foo"; // no brackets
+foo(); // Hi!
+```
+
+
+
+## Internals
+
+* Top-level variables stay inside the module
+* `export` make variables visible to the other modules
+  * Can be read (get)
+  * Cannot be changed (set)
+  * Cannot be dynamically changed at runtime
+* Modules are recursively instantiated before evaluation
+* Modules' body is run after all dependencies are instantiated
+
+
+<!-- Add some more stuff about modules here -->
+
+
 ## Useful links
 * [http://kangax.github.io/es5-compat-table/es6/](http://kangax.github.io/es5-compat-table/es6/)
 * [http://www.ecmascript.org/](http://www.ecmascript.org/)
