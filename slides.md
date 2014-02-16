@@ -962,6 +962,145 @@ No more yields...
 
 <!-- .slide: data-transition="none", class="step-code" -->
 <pre class="program">
+<b>var helloWorld =</b> function*() {    
+  console.log('Yield 1...');
+  var nextWord = yield 'hello';
+  console.log('Yield 2...');
+  yield nextWord;
+  console.log('No more yields...');
+}
+
+var hw = <strong>helloWorld()</strong>;
+
+console.log( hw.next() );
+console.log( hw.throw('Voldemort') );
+console.log( hw.next() );
+</pre>
+
+
+<!-- .slide: data-transition="none", class="step-code" -->
+<pre class="program">
+<b>var helloWorld =</b> <strong>function*()</strong> {
+  console.log('Yield 1...');
+  var nextWord = yield 'hello';
+  console.log('Yield 2...');
+  yield nextWord;
+  console.log('No more yields...');
+}
+
+var hw = helloWorld();
+
+console.log( hw.next() );
+console.log( hw.throw('Voldemort') );
+console.log( hw.next() );
+</pre>
+
+Note:
+* As soon as the VM sees that it's a generator function it returns without executing the function body.
+
+
+<!-- .slide: data-transition="none", class="step-code" -->
+<pre class="program">
+<b>var helloWorld = function*() {</b>
+  console.log('Yield 1...');
+  var nextWord = yield 'hello';
+  console.log('Yield 2...');
+  yield nextWord;
+  console.log('No more yields...');
+}
+
+<strong>var hw</strong> = <b>helloWorld();</b>
+
+console.log( hw.next() );
+console.log( hw.throw('Voldemort') );
+console.log( hw.next() );
+</pre>
+
+
+<!-- .slide: data-transition="none", class="step-code" -->
+<pre class="program">
+<b>var helloWorld = function*() {</b>
+  console.log('Yield 1...');
+  var nextWord = yield 'hello';
+  console.log('Yield 2...');
+  yield nextWord;
+  console.log('No more yields...');
+}
+
+<b>var hw = helloWorld();</b>
+
+console.log( <strong>hw.next()</strong> );
+console.log( hw.throw('Voldemort') );
+console.log( hw.next() );
+</pre>
+
+
+<!-- .slide: data-transition="none", class="step-code" -->
+<pre class="program">
+<b>var helloWorld = function*() {</b>
+  <strong>console.log('Yield 1...');</strong>
+  var nextWord = yield 'hello';
+  console.log('Yield 2...');
+  yield nextWord;
+  console.log('No more yields...');
+}
+
+<b>var hw = helloWorld();</b>
+
+console.log( hw.next() );
+console.log( hw.throw('Voldemort') );
+console.log( hw.next() );
+</pre>
+<pre class="output">
+Yield 1...
+</pre>
+
+
+<!-- .slide: data-transition="none", class="step-code" -->
+<pre class="program">
+<b>var helloWorld = function*() {</b>
+  <b>console.log('Yield 1...');</b>
+  var nextWord = <strong>yield 'hello';</strong>
+  console.log('Yield 2...');
+  yield nextWord;
+  console.log('No more yields...');
+}
+
+<b>var hw = helloWorld();</b>
+
+console.log( hw.next() );
+console.log( hw.throw('Voldemort') );
+console.log( hw.next() );
+</pre>
+<pre class="output">
+Yield 1...
+</pre>
+
+
+<!-- .slide: data-transition="none", class="step-code" -->
+<pre class="program">
+<b>var helloWorld = function*() {</b>
+  <b>console.log('Yield 1...');</b>
+  var nextWord = <b>yield 'hello'</b>;
+  console.log('Yield 2...');
+  yield nextWord;
+  console.log('No more yields...');
+}
+
+<b>var hw = helloWorld();</b>
+
+<strong>console.log</strong>( <b>hw.next()</b> );
+console.log( hw.throw('Voldemort') );
+console.log( hw.next() );
+</pre>
+<pre class="output">
+Yield 1...
+{ done: false, value: 'hello' }
+</pre>
+
+
+<!-- .slide: data-transition="none", class="step-code" -->
+<pre class="program">
 <b>var helloWorld = function*() {</b>
   <b>console.log('Yield 1...');</b>
   var nextWord = <b>yield 'hello'</b>;
@@ -1319,7 +1458,7 @@ Note:
 
 * `.isFinite()`
 
-* `.isNaN()` //Greg: new ???
+* `.isNaN()` - better than `isNan()`
 
 * `.isInteger()`
 
