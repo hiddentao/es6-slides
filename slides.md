@@ -1,3 +1,14 @@
+## Speakers
+
+* Grégoire Charvet (geekingfrog.com)
+  * Full time node.js developper
+  * Passionate about the web
+  * Working on the web for almost 2 years now
+
+* Ramesh Nair (hiddentao.com)
+
+
+
 
 ## Rapid history of javascript
 
