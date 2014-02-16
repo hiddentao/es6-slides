@@ -50,7 +50,60 @@
 
 
 
+## Support
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>30</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+For chrome, need to enable the *experimental js features*
+
+[full table](http://kangax.github.io/es5-compat-table/es6/)
+
+
+
+
+## Node.js support
+
+<p>
+Node.js: get the latest <code>0.11</code> and add the flag <code>--harmony</code>
+</p>
+<p> Support is the same as chrome (V8) </p>
+
+
+
+## Safari support
+
+Almost the same as IE (so quasi inexistant)
+
+
+
+
 ## Scoping
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>30</td>
+    <td>11</td>
+  </tr>
+</table>
 
 
 
@@ -145,6 +198,21 @@ i = 5; // throw error
 
 ## Destructuration
 
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+
 
 
 ## With array
@@ -202,8 +270,26 @@ recipes.forEach(function
 
 
 
-## Default parameters
-Ability to define default value for functions paramaters.
+## Default function parameters
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>30</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+
+
+
+### Ability to define default value for functions paramaters.
 No more:
 
 ```javascript
@@ -252,7 +338,24 @@ Number of parameters without default value
 
 
 ## Rest parameters
-Better than `arguments`
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+
+
+### Better than `arguments`
 
 ```javascript
 function(name) {
@@ -280,17 +383,17 @@ function(name, ...more) {
 
 
 ## Example
-```javascript
+
+<pre><code class='javascript small'>
 var humblify = function(name, ...qualities) {
   console.log('Hello %s', name);
   console.log('You are '+qualities.join(' and '));
 }
 
-humblify('Greg', 'awesome', 'a genius', 'the master of the universe');
+humblify('Greg', 'awesome', 'the master of the universe');
 // Hello Greg
-// You are awersome and a genius and the
-// master of the universe
-```
+// You are awesome and the master of the universe
+</code></pre>
 
 
 
@@ -329,58 +432,25 @@ Does not include the rest parameter
 
 
 ## Spread
-Expand expression where multiple arguments or multiple element are needed
 
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
 
-
-## Spread with functions
-#### A better `apply`
-
-```javascript
-var f = function(one, two, three) {}
-var a = [1, 2, 3];
-f.apply(null, a);
-```
-
-
-## Apply ?
-
-* `Function.prototype.apply`
-* `fun.apply(thisArg, [argsArray])`
-
-
-## Apply example
-
-```
-function f() {
-  for(let i=0; i<arguments.length; ++i)
-    console.log(arguments[i]);
-}
-
-f.apply(this, ['one', 2, 'foo']);
-// one
-// 2
-// foo
-```
+  <tr>
+    <td>24 (with array) <br> 27-28 (with functions)</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
 
 
 
 
-## With es6's spread
-```javascript
-var f = function(one, two, three) {}
-var a = [1, 2, 3];
-f(...a);
-```
-
-
-
-## Sweet syntax
-```javascript
-var f = function(a, b, c, d, e, f) {};
-var a = [1, 2];
-f(-1, ...a, 3, ...[-3, -4]);
-```
+### Expand expression where multiple arguments or multiple element are needed
 
 
 
@@ -405,43 +475,6 @@ a.push(3);
 <h2>With es6</h2>
 <pre><code class="javascript">
 var total = [0, ...from, 3];
-</code></pre>
-</div>
-
-
-
-## Apply for `new`
-With es5, one cannot use `apply` with `new`.
-
-```javascript
-var Constructor = function() {
-  // do some stuff
-}
-var c = new Constructor.apply({}, []); //invalid
-```
-
-<div class="fragment">
-But now:
-<pre><code class="javascript">
-var dataFields = readDateFields(database);
-var d = new Date(...dateFields);
-</pre></code>
-</div>
-
-
-
-## Better push
-To push multiple elements:
-```javascript
-var a = [];
-var toPush = [1, 2, 3];
-a.push.apply(a, toPush);
-```
-
-<div class="fragment">
-And now:
-<pre><code class="javascript">
-a.push(...toPush);
 </code></pre>
 </div>
 
@@ -496,8 +529,113 @@ Out of the scope of the talk.
 
 
 
+## Spread with functions
+#### A better `apply`
+
+```javascript
+var f = function(one, two, three) {}
+var a = [1, 2, 3];
+f.apply(null, a);
+```
+
+
+## Apply ?
+
+* `Function.prototype.apply`
+* `fun.apply(thisArg, [argsArray])`
+
+
+## Apply example
+
+```
+function f() {
+  for(let i=0; i<arguments.length; ++i)
+    console.log(arguments[i]);
+}
+
+f.apply(this, ['one', 2, 'foo']);
+// one
+// 2
+// foo
+```
+
+
+
+## With es6's spread
+```javascript
+var f = function(one, two, three) {}
+var a = [1, 2, 3];
+f(...a);
+```
+
+
+
+## Sweet syntax
+
+```javascript
+var f = function(a, b, c, d, e, f) {};
+var a = [1, 2];
+f(-1, ...a, 3, ...[-3, -4]);
+```
+
+
+
+## Apply for `new`
+
+With es5, one cannot use `apply` with `new`.
+
+<pre><code class="javascript small">
+var Constructor = function() {
+  // do some stuff
+}
+var c = new Constructor.apply({}, []); //invalid
+</code></pre>
+
+<div class="fragment">
+But now:
+<pre><code class="javascript small">
+var dataFields = readDateFields(database);
+var d = new Date(...dateFields);
+</pre></code>
+</div>
+
+
+
+## Better push
+To push multiple elements:
+```javascript
+var a = [];
+var toPush = [1, 2, 3];
+a.push.apply(a, toPush);
+```
+
+<div class="fragment">
+And now:
+<pre><code class="javascript">
+a.push(...toPush);
+</code></pre>
+</div>
+
+
+
+
 #### Next...
-## Iterators and Generators
+## Iterators
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
 
 
 
@@ -595,7 +733,25 @@ for (var num of col) {
 
 
 
-<div class="fragment">
+## Generators
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>27</td>
+    <td>30</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+
+
+
+<div>
   <p>A **generator** is a special type of iterator.</p>
   <p>A generator provides a `throw()` method. Its `next()` method accepts a parameter.</p>
   <p>A **generator function** acts as a constructor for a generator.</p>
@@ -994,7 +1150,7 @@ No more yields...
 
 
 
-<div class="fragment">
+<div>
   <p>The code in the generator doesn't start executing until you say so.</p>
   <p>When the `yield` statement is encountered it suspends execution until you tell it to resume.</p>
   <div class="fragment">
@@ -1205,19 +1361,27 @@ Note:
 
 
 
-To try out generators in Node.js grab **v0.11.2 (or higher)** and run with the `--harmony` flag.
-
-All of the previous Generator code examples should work!
-
-
-
 
 #### Next...
 ## Collections
 
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>30</td>
+    <td>11</td>
+  </tr>
+</table>
 
 
-`Set` - no duplicates allowed
+
+### `Set` - no duplicates allowed
 <pre><code class="javascript small">var items = new Set();
 items.add(5);
 items.add("5");
@@ -1270,11 +1434,6 @@ console.log( map.has(23); ) // true
 console.log( map.get(23) ); // "age"
 console.log( map.size );    // 2
 </code></pre>
-
-Note:
-* Browsers: Firefox only. Chrome support is behind a flag.
-* Node: Suppored behind `harmony` flag.
-* http://www.nczonline.net/blog/2012/10/09/ecmascript-6-collections-part-2-maps/
 
 
 
@@ -1344,6 +1503,22 @@ delete key;  // weakMap is now empty
 #### Next...
 ## API improvements
 
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+With a few exception ([full details](http://kangax.github.io/es5-compat-table/es6/))
+
 Note:
 * Mozilla Developer docs explain all of these
 
@@ -1386,6 +1561,20 @@ Note:
 
 #### Next...
 ## Modularity
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
 
 
 
@@ -1541,3 +1730,7 @@ foo(); // Hi
 * [http://www.esdiscuss.org/](http://www.esdiscuss.org/)
 * [https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla](https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla)
 
+
+
+
+# That's all for today

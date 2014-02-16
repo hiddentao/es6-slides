@@ -1,0 +1,17 @@
+/* support table */
+table.support {
+  margin: 0 auto;
+  width: 80%;
+  border: 0;
+}
+
+table.support td {
+  text-align: center;
+}
+
+table.support img {
+  border: 0;
+  box-shadow: none;
+  width: 64;
+  height: 64;
+}
