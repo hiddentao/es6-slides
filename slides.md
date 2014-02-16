@@ -1,9 +1,52 @@
+
+## Rapid history of javascript
+
+
+
+
+## The birth
+
+* Created in 10 days in 1995 (by Brendan Eich) at Netscape
+* Brought to ECMA a year later to standardize it
+* javaScript has nothing to do with java
+
+
+
+## Early history
+
+* ECMAScript 2 in 98, 3 in 99
+* War with Microsoft -> ES4 has never been adopted
+* In 2005, Microsoft introduced ajax
+* In 2009, all parties agreed to move forward with ES5 + harmony process
+
+
+
+## Now
+
+* Javascript most well known implementation of ECMAScript (with ActionScript)
+* Javascript is the assembly of the web
+* Confusing version number, JS 1.8 correspond to ES6
+
+
+
+## ES6
+
+* ES6 work started in 2011
+* As of now (Feb 2014), ES6 is not yet adopted (but it's almost there)
+* Major milestone
+* Not 'production ready' yet
+
+
+
+
 ## What we will cover
 
-* Why ECMAScript6?
+* Support
+* Scope and control
 * Iterators and Generators
-* ...
-* Browser support
+* Collections
+* API improvements
+* Modularity
 
 
 
@@ -1417,7 +1460,7 @@ import { encrypt, decrypt } from "crypto";
 
 ## Modules
 
-<pre><code language="javascript small">&bull; binding and renaming one of a module's exports
+<pre><code language="javascript small">&bull; binding & renaming one of a module's exports
 import { encrypt as enc } from "crypto";
 </code></pre>
 
@@ -1468,14 +1511,14 @@ import { cocoa as c} from "chocolate";
 
 ```javascript
 module "foo" {
-  export default function() {console.log("Hi!")}
+  export default function() {console.log("Hi")}
 }
 ```
 <hr>
 
 ```javascript
 import foo from "foo"; // no brackets
-foo(); // Hi!
+foo(); // Hi
 ```
 
 
@@ -1490,8 +1533,6 @@ foo(); // Hi!
 * Modules are recursively instantiated before evaluation
 * Modules' body is run after all dependencies are instantiated
 
-
-<!-- Add some more stuff about modules here -->
 
 
 ## Useful links
