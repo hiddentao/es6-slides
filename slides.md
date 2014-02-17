@@ -6,6 +6,9 @@
   * Working on the web for almost 2 years now
 
 * Ramesh Nair (hiddentao.com)
+  * Full time Javascript/Node developper
+  * Also worked with PHP, Python, Java, C++
+  * Loves optimizing for performance
 
 
 
@@ -50,14 +53,20 @@
 
 
 
-## What we will cover
+## What we will cover today
 
 * Support
 * Scope and control
 * Iterators and Generators
 * Collections
+* Typed objects
+* Direct proxies
+* Template strings
 * API improvements
 * Modularity
+
+Note:
+* We will only over the most awesome new features
 
 
 
@@ -1651,6 +1660,197 @@ delete key;  // weakMap is now empty
 
 
 #### Next...
+## Typed objects
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+#### Next...
+## Direct proxies
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>24</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+
+
+**Direct proxies** allows you to intercept calls made to a regular object
+
+They can wrap any `Object`, including `Date`, `Function`, etc.
+
+
+
+Proxies are meant to work 'transparently'
+<pre><code class="javascript small">var target = [];
+var handler = { get: function() {...} };
+var p = Proxy(target, handler);
+Object.prototype.toString.call(p) // "[object Array]"
+Object.getPrototypeOf(p) // Array.prototype
+typeof p // "object"
+Array.isArray(p) // true
+p[0] // triggers handler.get(target, "0", p)
+p === target // false
+</code></pre>
+
+Note:
+* Proxy handler is an object which can override one or more methods
+* `prototype` still points to original object one
+* `typeof` and `instanceof` calls automatically use original object
+* The point is that clients which use a proxy can't easily tell that it's a proxy
+
+
+
+<!-- .slide: class="side-by-side-code" -->
+Proxy handler can choose what to intercept
+<pre><code class="javascript small left">getOwnPropertyDescriptor
+getOwnPropertyNames
+getPrototypeOf       
+defineProperty           
+deleteProperty           
+freeze                   
+seal                     
+preventExtensions        
+isFrozen                
+isExtensible             
+</code></pre>
+<pre><code class="javascript small right">isSealed                 
+has                      
+hasOwn                   
+get                      
+set                      
+enumerate                
+keys                     
+apply                    
+construct                
+</code></pre>
+
+Note:
+* If no intercept present then target object's equivalent is invoked
+
+
+
+#### Next...
+## Template strings
+
+<table class='support'>
+  <thead>
+    <td><img src='/img/firefox_logo.png'></td>
+    <td><img src='/img/chrome_logo.png'></td>
+    <td><img src='/img/ie_logo.png'></td>
+  </thead>
+
+  <tr>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+    <td>&#x2717;</td>
+  </tr>
+</table>
+
+
+
+**What template strings allow**
+
+* Multi-line strings
+* String formatting - think `printf` from C
+* HTML escaping
+* Localization/internationalization
+
+Note:
+* Bullet points taken from: http://www.nczonline.net/blog/2012/08/01/a-critical-review-of-ecmascript-6-quasi-literals/
+
+
+
+Basic substitution
+
+```javascript
+var name = "Tom",
+    msg = `Hello, ${name}!`;
+    
+console.log(msg);    // "Hello, Tom!"
+```
+
+Note:
+* Notice the use of backquotes 
+
+
+
+Expressions
+
+```javascript
+var total = 30,
+    msg = `The total is ${total * 2} units`;
+    
+console.log(msg);    // "The total is 60 units"
+```
+
+
+
+Multi-line
+
+```javascript
+var total = 30,
+
+var msg = `The total is 
+${total * 2} 
+units`;
+```
+
+
+
+Functions
+
+```smaller
+// Gets called with: 
+//    ['Total is ', ' units']
+//    60
+var myFunc = function(literals) {
+  var str = '', i = 0;
+  while (i < literals.length) {
+    str += literals[i++];
+    if (i < arguments.length) { str += '[' + arguments[i] + ']'; }
+  }  
+  return str;
+};
+var total = 30;
+console.log( myFunc`Total is ${total * 2} units` );  
+
+// Total is [60] units
+```
+
+Note:
+* The substitution values are already calculated by the time `myFunc` is called
+* Can use this for HTML escaping, etc
+
+
+
+#### Next...
 ## API improvements
 
 <table class='support'>
@@ -1667,7 +1867,7 @@ delete key;  // weakMap is now empty
   </tr>
 </table>
 
-With a few exception ([full details](http://kangax.github.io/es5-compat-table/es6/))
+with a few exceptions ([full details](http://kangax.github.io/es5-compat-table/es6/))
 
 Note:
 * Mozilla Developer docs explain all of these
@@ -1687,7 +1887,7 @@ Note:
 
 * `.isFinite()`
 
-* `.isNaN()` - better than `isNan()`
+* `.isNaN()` - better than `isNaN()`
 
 * `.isInteger()`
 
@@ -1706,6 +1906,7 @@ Note:
 * `.contains(str)`
 
 * `.toArray()` - same as `.split('')`
+
 
 
 
@@ -1874,13 +2075,13 @@ foo(); // Hi
 
 
 
+# That's all for today!
+
+See [http://kangax.github.io/es5-compat-table/es6/](http://kangax.github.io/es5-compat-table/es6/) for more
+
+
+
 ## Useful links
-* [http://kangax.github.io/es5-compat-table/es6/](http://kangax.github.io/es5-compat-table/es6/)
 * [http://www.ecmascript.org/](http://www.ecmascript.org/)
 * [http://www.esdiscuss.org/](http://www.esdiscuss.org/)
 * [https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla](https://developer.mozilla.org/en/docs/Web/JavaScript/ECMAScript_6_support_in_Mozilla)
-
-
-
-
-# That's all for today
