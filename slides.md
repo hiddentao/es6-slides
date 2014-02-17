@@ -1670,7 +1670,7 @@ delete key;  // weakMap is now empty
   </thead>
 
   <tr>
-    <td>24</td>
+    <td>&#x2717;</td>
     <td>&#x2717;</td>
     <td>&#x2717;</td>
   </tr>
@@ -1678,7 +1678,100 @@ delete key;  // weakMap is now empty
 
 
 
+**Typed objects** are similar to `struct` objects in C
 
+They provide memory-safe, structured access to contiguous data
+
+They can expose a binary representation, making serialization/de-serialization easy
+
+
+
+Example: represent a 2D point
+```javascript
+const Point2D = new StructType({ 
+  x: uint32, 
+  y: uint32 
+});
+```
+
+
+
+Can access the underlying storage of the struct
+```javascript
+let p = Point2D({x : 0, y : 0});
+
+p.x = 5;
+
+let arrayBuffer = Point.storage(p).buffer;
+
+typeof arrayBuffer // ArrayBuffer
+
+arrayBuffer.byteLength // 8
+```
+
+Note:
+* 8 bytes becase we have two 32-bit (4-byte) values
+
+
+
+Hierarchy of typed objects
+<pre><code class="javascript small">const Corner = new StructType({ point: Point2D });
+
+const Triangle = Corner.dim(3);
+ 
+let t = Triangle([{ point: { x:  0, y: 0 } },
+                  { point: { x:  5, y: 5 } },
+                  { point: { x: 10, y: 0 } }]);
+
+t[0].point.x = 5;
+</code></pre>
+
+
+
+A type object and all of its sub objects share the same memory
+<pre><code class="javascript">
+let t = Triangle([{ point: { x:  0, y: 0 } },
+                  { point: { x:  5, y: 5 } },
+                  { point: { x: 10, y: 0 } }]);
+
+Triangle.storage(t).buffer.byteLength; // 24
+</code></pre>
+
+Note:
+* Sub objects are stored in slots within the larger object's memory
+
+
+
+Typed objects use copy-on-write
+<pre><code class="javascript small">const Corner = new StructType({ 
+  point: Point2D 
+});
+
+let p = Point2D({ x: 1, y: 1 });
+let c = Corner({ point: {x: 2, y: 2} });
+
+c.point = p; // p gets copied
+c.point.x = 5;
+p.x;  // 1
+</code></pre>
+
+Note:
+* Normal object assignements simply reference the source object. But with structs a copy is done.
+
+
+
+Built-in value types
+
+* `uint8`, `uint8Clamped` 
+* `uint16`
+* `uint32`
+* `int8` 
+* `int16`
+* `int32`
+* `float32`
+* `float64`
+* `boolean`
+* `string` 
 
 
 
